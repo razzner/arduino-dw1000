@@ -53,7 +53,7 @@
 //in ms
 #define DEFAULT_RESET_PERIOD 200
 //in us
-#define DEFAULT_REPLY_DELAY_TIME 4000
+#define DEFAULT_REPLY_DELAY_TIME 7000
 
 //sketch type (anchor or tag)
 #define TAG 0
@@ -76,10 +76,10 @@ public:
 	
 	//initialisation
 	static void    initCommunication(uint8_t myRST = DEFAULT_RST_PIN, uint8_t mySS = DEFAULT_SPI_SS_PIN, uint8_t myIRQ = 2);
-	static void    configureNetwork(uint16_t deviceAddress, uint16_t networkId, const byte mode[], byte cnannel);
+	static void    configureNetwork(uint16_t deviceAddress, uint16_t networkId, const byte mode[], byte channel);
 	static void    generalStart();
-	static void    startAsAnchor(char address[], byte cnannel, const byte mode[], const bool randomShortAddress = true);
-	static void    startAsTag(char address[], byte cnannel, const byte mode[], const bool randomShortAddress = true);
+	static void    startAsAnchor(char address[], byte channel, const byte mode[], const bool randomShortAddress = true);
+	static void    startAsTag(char address[], byte channel, const byte mode[], const bool randomShortAddress = true);
 	static boolean addNetworkDevices(DW1000Device* device, boolean shortAddress);
 	static boolean addNetworkDevices(DW1000Device* device);
 	static void    removeNetworkDevices(int16_t index);

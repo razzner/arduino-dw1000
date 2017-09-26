@@ -1078,8 +1078,15 @@ void DW1000Class::commitConfiguration() {
 	writeSystemEventMaskRegister();
 	// tune according to configuration
 	tune();
-	//16384 - library owner value
+	// TODO clean up code + antenna delay/calibration API
+	// TODO setter + check not larger two bytes integer
+	byte antennaDelayBytes[LEN_STAMP];
+	writeValueToBytes(antennaDelayBytes, 16400, LEN_STAMP);
+	_antennaDelay.setTimestamp(antennaDelayBytes);
+	writeBytes(TX_ANTD, NO_SUB, antennaDelayBytes, LEN_TX_ANTD);
+	writeBytes(LDE_IF, LDE_RXANTD_SUB, antennaDelayBytes, LEN_LDE_RXANTD);
 }
+
 
 uint16_t DW1000Class::getAntennaDelay() {
 	byte antennaDelayBytes[LEN_TX_ANTD];
@@ -1626,6 +1633,7 @@ void DW1000Class::writeValueToBytes(byte data[], int32_t val, uint16_t n) {
 		data[i] = ((val >> (i*8)) & 0xFF); // TODO bad types - signed unsigned problem
 	}
 }
+
 uint16_t DW1000Class::bytesToUint16_t(byte data[], uint16_t n) {
 	uint16_t val;
 	uint16_t i;

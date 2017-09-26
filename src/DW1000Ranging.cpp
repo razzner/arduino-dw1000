@@ -160,7 +160,7 @@ void DW1000RangingClass::generalStart() {
 }
 
 
-void DW1000RangingClass::startAsAnchor(char address[], byte channel, const byte mode[], const bool randomShortAddress) {
+void DW1000RangingClass::startAsAnchor(char address[],byte channel, const byte mode[], const bool randomShortAddress) {
 	//save the address
 	DW1000.convertToByte(address, _currentAddress);
 	//write the address on the DW1000 chip
@@ -181,7 +181,7 @@ void DW1000RangingClass::startAsAnchor(char address[], byte channel, const byte 
 	
 	//we configur the network for mac filtering
 	//(device Address, network ID, frequency)
-	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode, channel);
+	DW1000Ranging.configureNetwork(_currentShortAddress[0]+_currentShortAddress[1], 0xDECA, mode, channel);
 	
 	//general start:
 	generalStart();
@@ -214,7 +214,7 @@ void DW1000RangingClass::startAsTag(char address[], byte channel, const byte mod
 	
 	//we configur the network for mac filtering
 	//(device Address, network ID, frequency)
-	DW1000Ranging.configureNetwork(_currentShortAddress[0]*256+_currentShortAddress[1], 0xDECA, mode, channel);
+	DW1000Ranging.configureNetwork(_currentShortAddress[0]+_currentShortAddress[1], 0xDECA, mode, channel);
 	
 	generalStart();
 	//defined type as tag
